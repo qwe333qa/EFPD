@@ -96,7 +96,7 @@ The approximater with a Gamma kernel.
 
 INSTALL AND USAGE
 
-The package is totally open source and installation-free. To use it, you only need to copy the whole folder @EFPD into a directory on your matlab path.
+The package is totally open source and installation-free. To use it, you only need to copy all the files to a directory named @EFPD whose parent directory is on the MATLAB path.
 
 To begin, you need to create an object of the class using the command 
   x=EFPD(para,order);
