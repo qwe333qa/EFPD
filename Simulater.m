@@ -11,7 +11,6 @@ function self=Simulater(self,varargin)
 %  z=obj.Simulater() also take T=1000 as default value.
 %  The output stores the updated instance. 
 %  The simulation may take a lot of time.
-
     para1=num2cell(self.para);
     [t0,t1,k1,kp,dm,dp]=deal(para1{:});
     if(isempty(varargin))
@@ -40,7 +39,7 @@ function self=Simulater(self,varargin)
         time=TRun(flag);
         num=z(flag,:);
         l=[(dtotal-num(:,1))*t1,num(:,1)*t0,k1*num(:,1),dm*num(:,2),kp*num(:,2),dp*num(:,3)];
-        t=exprnd(l);
+        t=randexp(l);
         [Tspan,id]=min(t,[],2);
         vc=v(id,:);
         time=time+Tspan;
@@ -52,9 +51,21 @@ function self=Simulater(self,varargin)
         zd=repmat(z(:,3),1,4);
         m=mean(zd.^id,1);
         f=abs(m-e)./e;
+        disp(f);
         if(all(f<0.05))
             break;
         end
     end
     self.simudata=z;
 end
+
+function z=randexp(mu)
+    [m,n]=size(mu);
+    mu=mu(:);
+    id=mu>0;
+    z=mu;
+    z(~id)=Inf;
+    z(id)=-log(rand(sum(id),1))./mu(id);
+    z=reshape(z,[m,n]);
+end
+
