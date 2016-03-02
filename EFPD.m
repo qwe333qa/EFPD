@@ -86,7 +86,7 @@ classdef EFPD
             end
             mu=self.ecount(2);
             sigma=sqrt(self.ecount(3)-self.ecount(2)^2);
-            if(mu-5*sigma>0)
+            if(sigma/mu<0.2)
                 self.fun=@(x)self.NewHermiteApproximate(x);
             else
                 self.fun=@(x)self.LaguerreApproximate(x);
